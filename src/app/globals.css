@@ -1,26 +1,839 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==========================================
+   NG'OMBE FARM PRODUCTS
+   PROFESSIONAL WEBSITE STYLING
+   ========================================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==========================================
+   GLOBAL COLOUR SYSTEM
+   ========================================== */
+
+:root {
+  color-scheme: light;
+
+  --ng-ink: #172f39;
+  --ng-ocean: #102d39;
+  --ng-jade: #106d68;
+  --ng-jade-hover: #12857d;
+  --ng-amber: #f2c977;
+  --ng-cloud: #f4f7f8;
+  --ng-line: #dee7e8;
+
+  --ng-ease: cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+/* ==========================================
+   BASE WEBSITE STYLING
+   ========================================== */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--ng-cloud);
+  color: var(--ng-ink);
+
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: #a8ddd5;
+  color: #0a3139;
+}
+
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 3px solid var(--ng-amber);
+  outline-offset: 3px;
+}
+
+/* ==========================================
+   NAVIGATION BAR
+   ========================================== */
+
+.site-top-strip {
+  background: linear-gradient(
+    105deg,
+    #102d39 0%,
+    #123e46 54%,
+    #0c5958 100%
+  );
+}
+
+.site-header {
+  border-bottom-color: #dee7e8;
+
+  box-shadow: 0 7px 30px rgba(16, 45, 57, 0.055);
+
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.site-header a,
+.site-footer a {
+  transition: color 0.18s ease;
+}
+
+/* ==========================================
+   NAVIGATION HOVER EFFECT
+   ========================================== */
+
+.nav-link {
+  position: relative;
+  padding-block: 7px;
+}
+
+.nav-link::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 100%;
+  bottom: 0;
+
+  height: 2px;
+  border-radius: 99px;
+
+  background: linear-gradient(
+    90deg,
+    #0f837a,
+    #f2c977
+  );
+
+  transition: right 220ms var(--ng-ease);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  right: 0;
+}
+
+/* ==========================================
+   HOMEPAGE HERO SECTION
+   ========================================== */
+
+.site-hero {
+  position: relative;
+  isolation: isolate;
+
+  background: #0e2a35;
+}
+
+.site-hero::after {
+  content: "";
+
+  pointer-events: none;
+
+  position: absolute;
+  z-index: 0;
+
+  left: -8%;
+  bottom: -39%;
+
+  width: 680px;
+  height: 470px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    ellipse,
+    rgba(13, 145, 135, 0.16),
+    transparent 72%
+  );
+}
+
+.site-hero > .relative {
+  z-index: 1;
+}
+
+/* ==========================================
+   HOMEPAGE BACKGROUND IMAGE
+   ========================================== */
+
+.hero-photo {
+  filter: saturate(0.93) contrast(1.04);
+}
+
+/* ==========================================
+   HERO HEADING HIGHLIGHT
+   ========================================== */
+
+.hero-highlight {
+  background: linear-gradient(
+    100deg,
+    #ffe1a7,
+    #f2c977 56%,
+    #ffd88f
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* ==========================================
+   FEATURED PRODUCT SLIDESHOW
+   ========================================== */
+
+.featured-panel {
+  box-shadow:
+    0 24px 72px rgba(2, 19, 27, 0.27),
+    0 0 0 1px rgba(255, 255, 255, 0.14);
+
+  transition:
+    transform 300ms var(--ng-ease),
+    box-shadow 300ms ease;
+}
+
+.featured-panel:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 31px 83px rgba(2, 19, 27, 0.31),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================
+   INTERACTIVE BUTTON SYSTEM
+   ========================================== */
+
+.btn-interactive {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  transition:
+    transform 200ms var(--ng-ease),
+    box-shadow 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+/* Glossy hover effect */
+
+.btn-interactive::before {
+  content: "";
+
+  pointer-events: none;
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    110deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.18) 44%,
+    transparent 73%
+  );
+
+  transform: translateX(-130%);
+
+  transition: transform 520ms var(--ng-ease);
+}
+
+.btn-interactive:not(:disabled):hover::before {
+  transform: translateX(130%);
+}
+
+.btn-interactive:not(:disabled):hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 26px rgba(5, 45, 48, 0.16);
+}
+
+.btn-interactive:not(:disabled):active {
+  transform: translateY(1px) scale(0.985);
+  box-shadow: none;
+}
+
+/* ==========================================
+   ADD TO CART BUTTON
+   ========================================== */
+
+.header-cart-btn,
+.product-add-btn {
+  background: linear-gradient(
+    120deg,
+    #106d68,
+    #0b5b58
+  );
+
+  box-shadow: 0 5px 13px rgba(11, 92, 88, 0.12);
+}
+
+.header-cart-btn:hover,
+.product-add-btn:hover {
+  background: linear-gradient(
+    120deg,
+    #12857d,
+    #0d7069
+  );
+}
+
+/* ==========================================
+   PRIMARY HERO BUTTON
+   ========================================== */
+
+.hero-primary {
+  background: linear-gradient(
+    110deg,
+    #f2c977,
+    #ffdd97
+  );
+
+  box-shadow: 0 10px 26px rgba(4, 18, 21, 0.19);
+}
+
+.hero-primary:hover {
+  background: linear-gradient(
+    110deg,
+    #ffe0a0,
+    #ffcf75
+  );
+}
+
+/* ==========================================
+   SECONDARY HERO BUTTON
+   ========================================== */
+
+.hero-secondary {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================
+   WHATSAPP BUTTON
+   ========================================== */
+
+.whatsapp-btn {
+  background: linear-gradient(
+    110deg,
+    #098271,
+    #0c6f68
+  );
+
+  box-shadow: 0 7px 20px rgba(9, 130, 113, 0.18);
+}
+
+.whatsapp-btn:hover {
+  background: linear-gradient(
+    110deg,
+    #0c9580,
+    #0f8178
+  );
+}
+
+/* ==========================================
+   PRODUCT CATALOGUE BACKGROUND
+   ========================================== */
+
+.site-surface {
+  background-image: radial-gradient(
+    circle at 95% 20%,
+    rgba(12, 125, 117, 0.045),
+    transparent 30%
+  );
+}
+
+/* ==========================================
+   PRODUCT SEARCH
+   ========================================== */
+
+.search-control {
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.search-control:focus-within {
+  border-color: #12857d;
+
+  box-shadow: 0 0 0 4px rgba(18, 133, 125, 0.1);
+}
+
+/* ==========================================
+   CATEGORY FILTER BUTTONS
+   ========================================== */
+
+.category-pill {
+  border-radius: 999px;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.category-pill:not(:disabled):hover {
+  box-shadow: 0 8px 18px rgba(12, 82, 84, 0.09);
+}
+
+/* ==========================================
+   PRODUCT CARD STYLING
+   ========================================== */
+
+.catalogue-card {
+  background-color: #ffffff;
+
+  box-shadow: 0 6px 24px rgba(16, 45, 57, 0.055);
+}
+
+.product-chip {
+  box-shadow: 0 3px 12px rgba(16, 45, 57, 0.035);
+}
+
+/* ==========================================
+   PRODUCT CARD HOVER ANIMATION
+   ========================================== */
+
+.product-lift {
+  transition:
+    transform 260ms var(--ng-ease),
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.product-lift:hover {
+  transform: translateY(-6px);
+
+  border-color: #8dc8c2;
+
+  box-shadow: 0 20px 44px rgba(12, 62, 72, 0.13);
+}
+
+/* ==========================================
+   PRODUCT IMAGE ZOOM EFFECT
+   ========================================== */
+
+.image-pan {
+  transition:
+    transform 520ms var(--ng-ease),
+    opacity 450ms ease;
+}
+
+.product-lift:hover .image-pan,
+.image-pan:hover {
+  transform: scale(1.055);
+}
+
+/* ==========================================
+   CONTACT SECTION
+   ========================================== */
+
+.contact-panel {
+  background: linear-gradient(
+    125deg,
+    #102d39 0%,
+    #0f514f 100%
+  );
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+.site-footer {
+  background: #091f2a;
+}
+
+/* ==========================================
+   SHOPPING CART
+   ========================================== */
+
+.cart-drawer {
+  box-shadow: -20px 0 60px rgba(5, 23, 31, 0.22);
+}
+
+.cart-contents {
+  background: #f5f8f9;
+}
+
+/* ==========================================
+   SLIDE ANIMATION
+   ========================================== */
+
+.slide-in {
+  animation: ng-slide-up 420ms var(--ng-ease) both;
+}
+
+@keyframes ng-slide-up {
+  from {
+    opacity: 0.6;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   HORIZONTAL PRODUCT SLIDER
+   ========================================== */
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================
+   INTERACTIVE CONTACT BUTTONS
+   ========================================== */
+
+.contact-action-card {
+  transition:
+    transform 0.22s var(--ng-ease),
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.contact-action-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(242, 201, 119, 0.65);
+
+  background-color: rgba(255, 255, 255, 0.16);
+
+  box-shadow: 0 18px 26px rgba(0, 0, 0, 0.13);
+}
+
+/* ==========================================
+   MOBILE AND TABLET OPTIMIZATION
+   ========================================== */
+
+@media (max-width: 768px) {
+
+  html {
+    scroll-padding-top: 80px;
+  }
+
+  .site-hero::after {
+    width: 350px;
+    height: 350px;
+    bottom: -20%;
+  }
+
+  .featured-panel:hover {
+    transform: none;
+  }
+
+  .product-lift:hover {
+    transform: translateY(-3px);
+  }
+
+  .contact-action-card:hover {
+    transform: translateY(-2px);
+  }
+
+}
+
+/* ==========================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn-interactive,
+  .btn-interactive::before,
+  .product-lift,
+  .image-pan,
+  .nav-link::after,
+  .slide-in,
+  .featured-panel,
+  .category-pill,
+  .contact-action-card {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .btn-interactive:hover,
+  .product-lift:hover,
+  .image-pan:hover,
+  .featured-panel:hover,
+  .contact-action-card:hover {
+    transform: none !important;
+  }
+
+}
+
+/* Floating Call Us button with outward-moving waves. */
+.ng-floating-call {
+  position: fixed;
+  z-index: 40; /* The shopping cart remains above it (z-50). */
+  right: 24px;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 7px 21px 7px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0e7068, #0a4c49);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 32px rgba(3, 46, 43, 0.31);
+  transition: background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.ng-floating-call:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #12867b, #0d615b);
+  box-shadow: 0 14px 37px rgba(3, 46, 43, 0.37);
+}
+
+.ng-floating-call:focus-visible {
+  outline: 3px solid #f2c977;
+  outline-offset: 5px;
+}
+
+.ng-floating-call__halo {
+  position: relative;
+  display: grid;
+  width: 49px;
+  height: 49px;
+  flex: 0 0 49px;
+  place-items: center;
+}
+
+.ng-floating-call__disc {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 49px;
+  height: 49px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f2c977;
+  color: #103b39;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+}
+
+.ng-floating-call__ring {
+  position: absolute;
+  z-index: 0;
+  inset: 2px;
+  border: 2px solid rgba(24, 161, 137, 0.8);
+  border-radius: 50%;
+  background: rgba(24, 161, 137, 0.17);
+  pointer-events: none;
+  animation: ng-floating-call-ripple 2.9s ease-out infinite;
+}
+
+.ng-floating-call__ring--two { animation-delay: 1.45s; }
+
+@keyframes ng-floating-call-ripple {
+  0%   { transform: scale(0.95); opacity: 0.8; }
+  74%  { opacity: 0; }
+  100% { transform: scale(2.15); opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  .ng-floating-call {
+    right: 15px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+    padding: 6px 16px 6px 6px;
+  }
+  .ng-floating-call__halo,
+  .ng-floating-call__disc { width: 45px; height: 45px; }
+  .ng-floating-call__halo { flex-basis: 45px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ng-floating-call,
+  .ng-floating-call__ring { transition: none !important; animation: none !important; }
+  .ng-floating-call:hover { transform: none; }
+  .ng-floating-call__ring { opacity: 0; }
+}
+
+
+/* ==========================================
+   ICON-ONLY CONTACT LINKS — DISTINCT BRAND COLOURS
+   ========================================== */
+.ng-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(15px, 3vw, 26px);
+  margin-top: 36px;
+}
+
+.ng-social-link {
+  display: grid;
+  place-items: center;
+  width: clamp(72px, 19vw, 94px);
+  height: clamp(72px, 19vw, 94px);
+  flex: 0 0 auto;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 12px 25px rgba(4, 18, 28, 0.22);
+  transition: transform 220ms var(--ng-ease), box-shadow 220ms ease, filter 220ms ease;
+}
+
+.ng-social-link--whatsapp { background: #25d366; }
+.ng-social-link--facebook { background: #1877f2; }
+.ng-social-link--email { background: #d93025; }
+.ng-social-link--call { background: #0d9185; }
+
+.ng-social-link:hover {
+  transform: translateY(-5px) scale(1.055);
+  box-shadow: 0 18px 32px rgba(4, 18, 28, 0.3);
+  filter: brightness(1.07);
+}
+
+.ng-social-link:active { transform: translateY(0) scale(0.97); }
+
+.ng-social-link:focus-visible {
+  outline: 3px solid #f2c977;
+  outline-offset: 6px;
+}
+
+/* Keep the animated floating call control icon-only. */
+.ng-floating-call {
+  width: 66px;
+  height: 66px;
+  padding: 8px;
+  gap: 0;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+@media (max-width: 480px) {
+  .ng-social-link { border-radius: 20px; }
+  .ng-contact-links { gap: 14px; }
+  .ng-floating-call { width: 61px; height: 61px; padding: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ng-social-link { transition: none !important; }
+  .ng-social-link:hover, .ng-social-link:active { transform: none !important; }
+}
+
+
+/* ==========================================
+   CLEAR YELLOW SUBTOTALS - PRODUCTS AND CART
+   ========================================== */
+.ng-subtotal-btn {
+  border: 1px solid #D3A723;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FFE66D, #FFD329);
+  color: #172F39;
+  box-shadow: 0 7px 17px rgba(170, 125, 6, 0.2);
+  text-align: center;
+  white-space: normal;
+}
+
+.ng-subtotal-btn:not(:disabled):hover {
+  background: linear-gradient(135deg, #FFF092, #FFDC42);
+  box-shadow: 0 10px 22px rgba(170, 125, 6, 0.25);
+}
+
+.ng-subtotal-btn:disabled {
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.ng-product-subtotal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px 13px;
+  border: 1px solid #E4BF50;
+  border-radius: 12px;
+  background: #FFF0A9;
+  color: #172F39;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ng-product-subtotal strong {
+  font-size: 16px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.ng-cart-subtotal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #D8A91F;
+  border-radius: 15px;
+  background: linear-gradient(115deg, #FFE875, #FFDA3A);
+  color: #172F39;
+  box-shadow: 0 6px 18px rgba(173, 120, 0, 0.13);
+}
+
+.ng-cart-subtotal__label {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ng-cart-subtotal__amount {
+  font-size: clamp(19px, 4.4vw, 25px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ng-subtotal-btn {
+    transition: none !important;
+  }
 }
